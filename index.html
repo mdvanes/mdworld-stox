@@ -1,11 +1,39 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" />
+        <style>
+html, body {
+    height: 100%;
+}
+
+.top-row {
+    margin-top: 5px;
+}
+
+.header {
+    background: green;
+    color: white;
+    margin-top: 10px;
+}
+.admin .header {
+    border-bottom: 5px solid black;
+}
+
+#main {
+    min-height: 400px;
+}
+
+footer {
+    background: #ececec;
+    height: 300px;
+    padding-top: 50px;
+}
+        </style>
     </head>
-    <body>
+    <body class="admin">
 
         <div class="container">
-            <div class="row">
+            <div class="top-row row">
                 <div class="col-xs-12">
                     <button id="clientInfo" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="foobar">
                         <span>
@@ -16,7 +44,15 @@
                     </button>
                 </div>
             </div>
+        </div>
 
+        <div class="header">
+            <div class="container">
+                <h1>MDworld STOX</h1>
+            </div>
+        </div>
+
+        <div class="container" id="main">
             <div class="row">
                 <div class="col-xs-12">
                     <h1>Client</h1>
@@ -32,6 +68,18 @@
                 </div>
             </div>
         </div>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-8 col-xs-offset-2">
+                        <p>
+                            <a href="http://mdworld.nl">mdworld.nl</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
         <script src="vendor/jquery/js/jquery.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
