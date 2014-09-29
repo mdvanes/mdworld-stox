@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 aq-ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 aq-ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 aq-ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js aq-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js aq-ie10" lang="en">
+    <!--<![endif]-->
+    <head>
+        <title>Admin WSS Demo</title>
+        <link rel="shortcut icon" href="images/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="css/styles.css?v=" />
+        <script src="js/jquery.js"></script>
+        <script src="js/jqueryui.js"></script>
+        <script type="text/javascript" src="js/runtime.js?v="></script>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <div id="runtime" class="runtime admin">
+            <div class="aq-header">
+                <div class="aq-logo"></div>
+                <div id="status" class="">
+                    status
+                </div>
+            </div>
+            <div class="aq-page" id="P557">
+                <form method="post" name="aq-form" id="aq-form" action="http://www.razorvine.net/test/snoop.sn" class="aq-form">
+                    <nav class="tabs">
+                            <button id="P557-C0-B0" type="button" class="aq-button aq-button-tab1 active" onclick="Runtime.submit(this, '')">Admin</button>
+                            <button id="P557-C0-B1"
+                            type="button" class="aq-button aq-button-tab2 aq-button-disabled" disabled="disabled">N/A</button>
+                            <button id="P557-C0-B1" type="button"
+                            class="aq-button aq-button-tab3 aq-button-disabled" disabled="disabled">N/A</button>
+                        </nav>
+
+                    <div id="field-P266-C1-C0-C0-F1" class="aq-field memo">
+                        <div class="aq-question" id="question-P266-C1-C0-C0-F1"><label for="P266-C1-C0-C0-F1">Productinformatie</label></div>
+                        <div class="aq-field-info">
+                            <div class="aq-required"></div>
+                            <div class="aq-explain" id="explain-P266-C1-C0-C0-F1">
+                                <div class="aq-explain-trigger" onclick="Runtime.toggleExplain(this, 'aq-explain-text-prodinfo')"></div>
+                                <div class="aq-explain-text" id="aq-explain-text-prodinfo" onclick="Runtime.toggleExplain(null, 'aq-explain-text-prodinfo')">
+                                    <ul>
+                                        <li>Client URL: http://localhost:1982/socket/stox/client.html</li>
+                                        <li>First start: php www\socket\server\server.php</li>
+                                        <li>Run this admin panel in Chrome for sliders</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1>Connected Clients (<span id="clientCount">0</span>)</h1>
+                    <span>Ports used by this page: StatusSocket <span class="statusSocketId"></span> StoxAdminSocket <span class="adminSocketId"></span></span>
+                    <div id="clients" class="aq-container clients">
+                        <!-- <div id="clientList">
+                            <select id="clientListSelect" multiple="multiple"></select>
+                        </div> -->
+                        <ul id="clientList">
+                        </ul>
+                        <div id="mirror">
+                        </div>
+                    </div>
+
+                    <h1>Log</h1>
+                    <div id="log">
+                    </div>
+
+                    <h1>Controls</h1>
+                    <div id="field-P557-C1-F1" class="aq-field">
+                        <div class="aq-question" id="question-P557-C1-F1"><label for="P557-C1-F1">Send identifiers</label></div>
+                        <div class="aq-answer" id="answer-P557-C1-F1">
+                            <span class="aq-button" id="send">identify clients</span>
+                        </div>
+                        <div class="aq-field-info"></div>
+                    </div>
+                    <div id="field-P557-C1-F1" class="aq-field">
+                        <div class="aq-question" id="question-P557-C1-F1"><label for="P557-C1-F1">Initrode value</label></div>
+                        <div class="aq-answer" id="answer-P557-C1-F1">
+                            <input type="range" id="inr-val" min="0" max="200" step="10" value="100" class="updateStock" data-for="inr"/>
+                        </div>
+                        <div class="aq-field-info"></div>
+                    </div>
+                    <div id="field-P557-C1-F1" class="aq-field">
+                        <div class="aq-question" id="question-P557-C1-F1"><label for="P557-C1-F1">CollaboSmart value</label></div>
+                        <div class="aq-answer" id="answer-P557-C1-F1">
+                            <input type="range" id="cls-val" min="0" max="200" step="10" value="100" class="updateStock" data-for="cls"/>
+                        </div>
+                        <div class="aq-field-info"></div>
+                    </div>
+                    <div id="field-P557-C1-F1" class="aq-field">
+                        <div class="aq-question" id="question-P557-C1-F1"><label for="P557-C1-F1">Umbrella Co. value</label></div>
+                        <div class="aq-answer" id="answer-P557-C1-F1">
+                            <input type="range" id="umb-val" min="0" max="200" step="10" value="100" class="updateStock" data-for="umb"/>
+                        </div>
+                        <div class="aq-field-info"></div>
+                    </div>
+                   
+                    <input type="hidden" id="event" name="event" />
+                </form>
+            </div>
+        </div>
+        <!--<div id="<%=id%>" class="<%=(i % 2 == 1 ? " even" : "")%>">
+            <div class="grid_1 alpha right">
+              <img class="righted" src="<%=profile_image_url%>"/>
+            </div>
+            <div class="grid_6 omega contents">
+              <p><b><a href="/<%=from_user%>"><%=from_user%></a>:</b> <%=text%></p>
+            </div>
+          </div>-->
+        <!-- templates -->
+        <script type="text/html" id="button3_tmpl">
+          <span class="aq-button pong">pong</span>
+        </script>
+        <!-- libs -->
+        <script type="text/javascript" src="dynamic_js/datepicker.config.js?sessionId="></script>
+        <script type="text/javascript" src="js/jQuery.fileinput.js?v="></script>
+        <script type="text/javascript" src="js/modernizr.custom.73842.js?v="></script>
+        <script type="text/javascript" src="js/refreshmngr.js?v="></script>
+        <script type="text/javascript" src="js/microtmpl.js?v="></script>
+        <script type="text/javascript" src="js/everest.js?v="></script>
+        <script type="text/javascript" src="js/pong.js?v="></script>
+        <script type="text/javascript" src="js/websockets.js?v="></script>
+        <script>
+           everest.globals.themePath = "?";
+        </script>
+      </body>
+</html>
