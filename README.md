@@ -1,5 +1,7 @@
 # Mdworld Stox demo
 
+Stox websockets demo, hosted on Heroku: [http://mdworld-stox.herokuapp.com/](http://mdworld-stox.herokuapp.com/)
+
 Based on:
 A tiny demo using the [einaros/ws](http://einaros.github.io/ws/) WebSockets implementation.
 
