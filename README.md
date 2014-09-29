@@ -25,6 +25,16 @@ git push heroku master
 heroku open
 ```
 
+# Useful commands
+
+* heroku logs --tail
+* heroku restart (restart _ALL_ apps)
+* heroku ps:scale web=0 / heroku ps:scale web=1 (disable/enable app)
+* heroku maintenance:on / heroku maintenance:off
+
+* git commit . -m "comment" (commit changes)
+* git push origin master (submit to github)
+
 # TODO
 
 * Grunt with compass, jshint and that does foreman start/npm start

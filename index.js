@@ -29,11 +29,18 @@ wss.on("connection", function(ws) {
     ws.on("close", function() {
         //ws.send('test close');
         console.log("websocket connection close");
-        clearInterval(id);
+        //clearInterval(id);
     });
 
     createNewClient(ws);
+    updateAdmins();
 });
+
+wss.broadcast = function(data) {
+    for (var i in this.clients) {
+        this.clients[i].send(data);
+    }
+};
 
 function createNewClient(ws) {
     var newestSocketIndex = wss.clients.length - 1;
@@ -49,4 +56,21 @@ function createNewClient(ws) {
     //     newestSocketInfo.remoteAddress + ' ' +
     //     newestSocketInfo.remotePort);
     ws.send(JSON.stringify(msg));
+}
+
+function updateAdmins() {
+    // TODO better way of identifying admins
+
+    var clientlist = [];
+    for (var i = 0; i < wss.clients.length; i++) {
+        var port = wss.clients[i]._socket.remotePort;
+        clientlist.push(port);
+    }
+
+    var msg = {
+        action: 'adminUpdate',
+        clients: clientlist
+    };
+
+    wss.broadcast(JSON.stringify(msg));
 }

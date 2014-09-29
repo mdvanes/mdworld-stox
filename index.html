@@ -1,22 +1,37 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" />
-    <script>
-    //   var host = location.origin.replace(/^http/, 'ws')
-    //   var ws = new WebSocket(host);
-    //   ws.onmessage = function (event) {
-    //     var li = document.createElement('li');
-    //     li.innerHTML = JSON.parse(event.data);
-    //     document.querySelector('#pings').appendChild(li);
-    //   };
-    </script>
     </head>
     <body>
-        <div id="status">test</div>
-        <div class="statusSocketId"></div>
 
-        <h1>Client?</h1>
-        <ul id='pings'></ul>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button id="clientInfo" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="foobar">
+                        <span>
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </span>
+                        <!-- <span class="statusSocketId"></span> -->
+                        <span id="status" class="label label-default">uninitialized</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Client</h1>
+                    <!-- <ul id='pings'></ul> -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>Admin</h1>
+                    <h2>Connected Clients</h2>
+	                <table class="table table-striped" id="connected-clients"></table>
+                </div>
+            </div>
+        </div>
 
         <script src="vendor/jquery/js/jquery.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
