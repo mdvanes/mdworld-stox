@@ -13,7 +13,7 @@
             console.log('open');
             $('#status')
                 .removeClass()
-                .addClass('online')
+                .addClass('label label-success')
                 .html('connected');
         };
     };
@@ -23,7 +23,7 @@
             console.log('close');
             return $('#status')
                 .removeClass()
-                .addClass('offline')
+                .addClass('label label-danger')
                 .html('disconnected');
         };
     };
@@ -35,10 +35,16 @@
             var response = JSON.parse(msg.data);
             switch (response.action) {
                 case 'identify':
-                    //console.log(response.data);
                     self.port = response.port;
                     self.ip = response.ip;
-                    $('.statusSocketId').text( self.ip + ':' + self.port );
+                    $('#clientInfo')
+                        .attr('title', self.ip + ':' + self.port )
+                        .tooltip();
+                    break;
+                case 'adminUpdate':
+                    // TODO only in AdminSocket
+                    //console.log('adminstatus', response.clients);
+                    updateConnectedClients(response.clients);
                     break;
                 case "statusMsg":
                     return self.statusMsg(response.data);
@@ -53,6 +59,14 @@
             }
         };
     };
+
+    function updateConnectedClients(clients) {
+        var $table = $('#connected-clients');
+        $table.empty();
+        $.each(clients, function() {
+            $table.append('<tr><td>id</td><td>' + this + '</td></tr>');
+        });
+    }
 
     // expose
     window.StatusSocket = StatusSocket;
