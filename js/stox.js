@@ -1,4 +1,7 @@
 (function($) {
+    'use strict';
+
+    // TODO remove this file
 
     // var pingInit = function () {
     //     console.log('ping init');
@@ -13,7 +16,7 @@
 
     $(document).ready(function() {
         //pingInit();
-        new StatusSocket();
+        //new StatusSocket();
 
         // Bootstrap decoration
         //$('#clientInfo').tooltip();

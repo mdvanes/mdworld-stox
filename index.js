@@ -1,76 +1,71 @@
-var WebSocketServer = require("ws").Server;
-var http = require("http");
-var express = require("express");
+/* jshint strict:false, node:true */
+/* globals console, process */
+var WebSocketServer = require('ws').Server;
+var http = require('http');
+var express = require('express');
 var app = express();
 var port = process.env.PORT || 5000;
+var AdminServer = require('./server/AdminServer');
+var StoxServer = require('./server/StoxServer');
 
-app.use(express.static(__dirname + "/"));
+app.use(express.static(__dirname + '/'));
 
 var server = http.createServer(app);
 server.listen(port);
 
-console.log("http server listening on %d", port);
+console.log('http server listening on %d', port);
 
-var wss = new WebSocketServer({server: server});
-console.log("websocket server created");
 
-wss.on("connection", function(ws) {
-    // var id = setInterval(function() {
-    //     ws.send(JSON.stringify(new Date()), function() {  });
-    // }, 50000);
+/* Websocket server */
+// TODO rename stoxWss. Also path to /stox. Also StatusSocket to StoxSocket
+// TODO inheritance or util for shared functions in StoxSocket and AdminSocket (bindOpen/bindClose)
+var stoxWss = new WebSocketServer({server: server, path: '/stox'});
+console.log('websocket server created');
 
-    console.log("websocket connection open");
+var adminWss = new WebSocketServer({server: server, path: '/admin'});
+console.log('adminWss websocket server created');
 
-    ws.on('open', function() {
-	    console.log('websocket connection open2');
-        //ws.send('test open2');
-    });
+// TODO rename identify
+// function createNewClient(ws) {
+//     var newestSocketIndex = clientWss.clients.length - 1;
+//     var newestSocketInfo = clientWss.clients[newestSocketIndex]._socket;
+//     var msg = {
+//         action: 'identify',
+//         //data: '1234', // wss.clients[0]
+//         ip: newestSocketInfo.remoteAddress,
+//         port: newestSocketInfo.remotePort
+//     };
+//     console.log(newestSocketInfo.address().address + ' ' +
+//         newestSocketInfo.address().port + ' ' +
+//         newestSocketInfo.remoteAddress + ' ' +
+//         newestSocketInfo.remotePort);
+//     ws.send(JSON.stringify(msg));
+// }
 
-    ws.on("close", function() {
-        //ws.send('test close');
-        console.log("websocket connection close");
-        //clearInterval(id);
-    });
+var adminServer = new AdminServer(adminWss);
+//console.log(adminServer);
 
-    createNewClient(ws);
-    updateAdmins();
-});
+// clientWss.on('connection', function(ws) {
+//     // var id = setInterval(function() {
+//     //     ws.send(JSON.stringify(new Date()), function() {  });
+//     // }, 50000);
 
-wss.broadcast = function(data) {
-    for (var i in this.clients) {
-        this.clients[i].send(data);
-    }
-};
+//     console.log('websocket connection open');
 
-function createNewClient(ws) {
-    var newestSocketIndex = wss.clients.length - 1;
-    var newestSocketInfo = wss.clients[newestSocketIndex]._socket;
-    var msg = {
-        action: 'identify',
-        //data: '1234', // wss.clients[0]
-        ip: newestSocketInfo.remoteAddress,
-        port: newestSocketInfo.remotePort
-    };
-    // console.log(newestSocketInfo.address().address + ' ' +
-    //     newestSocketInfo.address().port + ' ' +
-    //     newestSocketInfo.remoteAddress + ' ' +
-    //     newestSocketInfo.remotePort);
-    ws.send(JSON.stringify(msg));
-}
+//     ws.on('open', function() {
+// 	    console.log('websocket connection open2');
+//         //ws.send('test open2');
+//     });
 
-function updateAdmins() {
-    // TODO better way of identifying admins
+//     ws.on('close', function() {
+//         //ws.send('test close');
+//         console.log('websocket connection close');
+//         //clearInterval(id);
+//     });
 
-    var clientlist = [];
-    for (var i = 0; i < wss.clients.length; i++) {
-        var port = wss.clients[i]._socket.remotePort;
-        clientlist.push(port);
-    }
-
-    var msg = {
-        action: 'adminUpdate',
-        clients: clientlist
-    };
-
-    wss.broadcast(JSON.stringify(msg));
-}
+//     createNewClient(ws);
+//     //updateAdmins();
+//     //console.log('client connection send update to adminserver ' + this.clients.length, this.clients);
+//     adminServer.update(this.clients);
+// });
+new StoxServer(stoxWss, adminServer);

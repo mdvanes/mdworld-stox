@@ -37,6 +37,12 @@ heroku open
 
 # TODO
 
+* inheritance
+* angular websockets, see AdminSocket
+* first features: -connected clients-, log, stox (Initrode, CollaboSmart, Umbrella Co.)
+* other features (mirror, icons behind connected clients, limit admin to 1 logged in?)
+
+
 * Grunt with compass, jshint and that does foreman start/npm start
 * convert PHP features
 * add Angular. implement routing with Angular for admin/client pages

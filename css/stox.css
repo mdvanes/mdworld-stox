@@ -1,0 +1,44 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\000031}}
+html, body {
+  height: 100%;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\000035}}
+.top-row {
+  margin-top: 5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\000039}}
+.header {
+  background: green;
+  color: white;
+  margin-top: 10px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000314}}
+.header.login {
+  border-bottom: 5px solid black;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000319}}
+#main {
+  min-height: 400px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000323}}
+#log {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000327}}
+#log .timestamp {
+  white-space: nowrap;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/d\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000332}}
+footer {
+  background: #ececec;
+  height: 300px;
+  padding-top: 50px;
+}
+
+/*# sourceMappingURL=stox.css.map */
