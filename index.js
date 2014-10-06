@@ -22,5 +22,5 @@ console.log('websocket server created');
 var adminWss = new WebSocketServer({server: server, path: '/admin'});
 console.log('adminWss websocket server created');
 
-var adminServer = new AdminServer(adminWss);
+var adminServer = new AdminServer(adminWss, stoxWss);
 new StoxServer(stoxWss, adminServer);

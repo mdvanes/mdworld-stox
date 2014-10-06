@@ -25,7 +25,7 @@ StoxServer.prototype.bindConnection = function() {
         });
 
         serverUtil.identify(this, ws);
-        self.adminServer.update(this.clients);
+        self.adminServer.update();//this.clients);
     });
 };
 

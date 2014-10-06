@@ -3,9 +3,10 @@
 
 var serverUtil = require('./serverUtil');
 
-function AdminServer(adminWss) {
+function AdminServer(adminWss, stoxWss) {
     console.log('adminserver constructor');
     this.wss = adminWss;
+    this.stoxWss = stoxWss;
     this.bindConnection();
 }
 
@@ -74,8 +75,11 @@ function clientsToInfo(clients, type) {
 }
 
 // TODO rename sendUpdate?
-AdminServer.prototype.update = function(clients) {
+//AdminServer.prototype.update = function(clients) {
+AdminServer.prototype.update = function() {
     var clientlist = [];
+    //clientlist = clientlist.concat( clientsToInfo(clients, 'client') );
+    var clients = this.stoxWss.clients;
     clientlist = clientlist.concat( clientsToInfo(clients, 'client') );
     clients = this.wss.clients;
     clientlist = clientlist.concat( clientsToInfo(clients, 'admin') );
