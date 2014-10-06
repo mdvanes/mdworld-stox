@@ -37,6 +37,7 @@ heroku open
 
 # TODO
 
+* when opening client first and then in another window admin, only admin shows under connected clients
 * inheritance
 * angular websockets, see AdminSocket
 * first features: -connected clients-, log, stox (Initrode, CollaboSmart, Umbrella Co.)
