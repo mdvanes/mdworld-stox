@@ -7,8 +7,6 @@
         this.ws = new WebSocket(host + '/stox');
         console.log('ws', this.ws);
 
-        // this.bindOpen();
-        // this.bindClose();
         new GenericSocket(this.ws);
 
         this.bindMessage();
@@ -19,26 +17,6 @@
             self.ws.close();
         });
     };
-
-    // StoxSocket.prototype.bindOpen = function() {
-    //     this.ws.onopen = function() {
-    //         console.log('open');
-    //         $('#status')
-    //             .removeClass()
-    //             .addClass('label label-success')
-    //             .html('connected');
-    //     };
-    // };
-
-    // StoxSocket.prototype.bindClose = function() {
-    //     this.ws.onclose = function() {
-    //         console.log('close');
-    //         return $('#status')
-    //             .removeClass()
-    //             .addClass('label label-danger')
-    //             .html('disconnected');
-    //     };
-    // };
 
     StoxSocket.prototype.bindMessage = function() {
         var self = this;
@@ -66,14 +44,6 @@
             }
         };
     };
-
-    // function updateConnectedClients(clients) {
-    //     var $table = $('#connected-clients');
-    //     $table.empty();
-    //     $.each(clients, function() {
-    //         $table.append('<tr><td>id</td><td>' + this + '</td></tr>');
-    //     });
-    // }
 
     // expose
     window.StoxSocket = StoxSocket;

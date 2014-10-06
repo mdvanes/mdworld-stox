@@ -2,3 +2,5 @@
 node_modules
 /_reference
 /.sass-cache
+/stox.sublime-project
+/stox.sublime-workspace
