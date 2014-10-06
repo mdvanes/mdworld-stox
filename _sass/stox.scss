@@ -1,0 +1,36 @@
+html, body {
+    height: 100%;
+}
+
+.top-row {
+    margin-top: 5px;
+}
+
+.header {
+    background: green;
+    color: white;
+    margin-top: 10px;
+
+    &.login {
+        border-bottom: 5px solid black;
+    }
+}
+
+#main {
+    min-height: 400px;
+}
+
+#log {
+    max-height: 200px;
+    overflow-y: scroll;
+
+    .timestamp {
+        white-space: nowrap;
+    }
+}
+
+footer {
+    background: #ececec;
+    height: 300px;
+    padding-top: 50px;
+}
