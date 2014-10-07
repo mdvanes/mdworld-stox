@@ -21,7 +21,7 @@
     StoxSocket.prototype.bindMessage = function() {
         var self = this;
         this.ws.onmessage = function(msg) {
-            console.log(msg);
+            console.log('onmsg', msg);
             var response = JSON.parse(msg.data);
             switch (response.action) {
                 case 'identify':
@@ -30,6 +30,9 @@
                     $('#clientInfo')
                         .attr('title', self.ip + ':' + self.port )
                         .tooltip();
+                    break;
+                case 'receiveNotification':
+                    alert('received: ' + response.data);
                     break;
                 // case 'statusMsg':
                 //     return self.statusMsg(response.data);

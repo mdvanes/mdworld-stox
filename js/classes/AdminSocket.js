@@ -58,7 +58,7 @@
                     break;
                 case 'adminUpdate':
                     log('adminstatus: ' + JSON.stringify(response.clients, null, 4));
-                    updateConnectedClients(response.clients);
+                    self.updateConnectedClients(response.clients);
                     break;
                 case 'statusMsg':
                     return self.statusMsg(response.data);
@@ -76,17 +76,50 @@
         };
     };
 
-    function updateConnectedClients(clients) {
+    AdminSocket.prototype.updateConnectedClients = function(clients) {
+        var self = this;
         // TODO rewrite for Angular (templates, ng-foreach)
         // see http://clintberry.com/2013/angular-js-websocket-service/
         var $table = $('#connected-clients');
         $table.empty();
         $.each(clients, function() {
-            $table.append('<tr><td>id</td><td>' +
-                this.port + '</td><td>' +
+            var $html = $('<tr><td>id</td><td>' +
+                this.port + '</td><td class="type">' +
                 this.type + '</td></tr>');
+            if( this.port === self.port ) {
+                // Current admin page specific
+                $html.addClass('current');
+                $html.find('.type')
+                    .attr('title', 'This admin page')
+                    .append(' <span class="glyphicon glyphicon-flag"></span>');
+                $html.append('<td></td>');
+            } else {
+                // Not current admin page specific
+                var port = this.port;
+                var $msgButton = $('<td title="send notification"><span class="glyphicon glyphicon-envelope"></span></td>');
+                $msgButton.click(function() {
+                    self.sendNotification(port);
+                });
+                $html.append($msgButton);                
+            }
+            $table.append($html);
         });
-    }
+    };
+
+    AdminSocket.prototype.sendNotification = function(port) {
+        var self = this;
+        var msg = window.prompt('Type the message to send to the client ' + port + '.\n\nMessage:');
+        if( msg !== null ) {
+            var payload = {
+                action: 'sendNotification',
+                data: msg,
+                to: port
+            };
+            var jsonPayload = JSON.stringify(payload);
+            self.ws.send(jsonPayload);
+            log('send notification' + jsonPayload);
+        }
+    };
 
     function log(msg) {
         var timestamp = (new Date()).toLocaleString();

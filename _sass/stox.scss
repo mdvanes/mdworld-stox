@@ -1,3 +1,5 @@
+$primaryColor: green;
+
 html, body {
     height: 100%;
 }
@@ -7,7 +9,7 @@ html, body {
 }
 
 .header {
-    background: green;
+    background: $primaryColor;
     color: white;
     margin-top: 10px;
 
@@ -20,8 +22,19 @@ html, body {
     min-height: 600px;
 }
 
+#connected-clients {
+    .current .type > .glyphicon {
+        color: $primaryColor;
+    }
+
+    .glyphicon {
+        cursor: pointer;
+    }
+}
+
 #log {
-    max-height: 200px;
+    display: block;
+    max-height: 300px;
     overflow-y: scroll;
 
     .timestamp {

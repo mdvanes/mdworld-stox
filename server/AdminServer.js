@@ -3,6 +3,73 @@
 
 var serverUtil = require('./serverUtil');
 
+// convert ws.clients to an hashmap by port
+function clientsToMap(map, clients, type) {
+    var i, port, clientInfo, client;
+    //var clientlist = [];
+    if( typeof clients !== 'undefined' ) {
+        for (i = 0; i < clients.length; i++) {
+            client = clients[i];
+            port = client._socket.remotePort;
+            clientInfo = {
+                src: client,
+                type: type
+            };
+            //clientlist.push(clientInfo);
+            map[port] = clientInfo;
+        }
+    }
+    //console.log('clientsToMap ', map);
+    return map;
+}
+
+// returns an object like { port : { src: ws.clients[i], type: 'client/admin' } }
+function getClientMap(stoxClients, adminClients) {
+    //console.log('getClientMap ', stoxClients);
+    var clientmap = {};
+    var clients = stoxClients;
+    //clientmap = clientmap.concat( clientsToMap(clientmap, clients, 'client') );
+    clientmap = clientsToMap(clientmap, clients, 'client');
+    clients = adminClients;
+    //clientmap = clientmap.concat( clientsToMap(clientmap, clients, 'admin') );
+    clientmap = clientsToMap(clientmap, clients, 'admin');
+    //console.log('clientmap ', clientmap);
+    return clientmap;
+}
+
+// TODO refactor to use getClientMap
+// convert ws.clients to an infolist
+// function clientsToInfo(clients, type) {
+//     var i, port, clientInfo;
+//     var clientlist = [];
+//     if( typeof clients !== 'undefined' ) {
+//         for (i = 0; i < clients.length; i++) {
+//             port = clients[i]._socket.remotePort;
+//             clientInfo = {
+//                 port: port,
+//                 type: type
+//             };
+//             clientlist.push(clientInfo);
+//         }
+//     }
+//     return clientlist;
+// }
+
+function clientmapToInfo(clientmap) {
+    var port, type, clientInfo;
+    var clientlist = [];
+    for(port in clientmap) {
+        //var client = clientmap[port];
+        type = clientmap[port].type;
+        clientInfo = {
+            port: port,
+            type: type
+        };
+        clientlist.push(clientInfo);
+    }
+    return clientlist;
+}
+
 function AdminServer(adminWss, stoxWss) {
     console.log('adminserver constructor');
     this.wss = adminWss;
@@ -30,6 +97,8 @@ AdminServer.prototype.bindConnection = function() {
             //clearInterval(id);
         });
 
+        self.bindMessage(ws);
+
         // createNewClient(ws);
         //self.identify(ws);
         serverUtil.identify(this, ws);
@@ -38,51 +107,16 @@ AdminServer.prototype.bindConnection = function() {
     });    
 };
 
-// // TODO reuse with client version of identify?
-// // see http://javascript.crockford.com/inheritance.html
-// AdminServer.prototype.identify = function(ws) {
-//     var clients = this.wss.clients;
-//     var newestSocketIndex = clients.length - 1;
-//     var newestSocketInfo = clients[newestSocketIndex]._socket;
-//     var msg = {
-//         action: 'identify',
-//         //data: '1234', // wss.clients[0]
-//         ip: newestSocketInfo.remoteAddress,
-//         port: newestSocketInfo.remotePort
-//     };
-//     // console.log(newestSocketInfo.address().address + ' ' +
-//     //     newestSocketInfo.address().port + ' ' +
-//     //     newestSocketInfo.remoteAddress + ' ' +
-//     //     newestSocketInfo.remotePort);
-//     ws.send(JSON.stringify(msg));
-// };
-
-// convert ws.clients to an infolist
-function clientsToInfo(clients, type) {
-    var i, port, clientInfo;
-    var clientlist = [];
-    if( typeof clients !== 'undefined' ) {
-        for (i = 0; i < clients.length; i++) {
-            port = clients[i]._socket.remotePort;
-            clientInfo = {
-                port: port,
-                type: type
-            };
-            clientlist.push(clientInfo);
-        }
-    }
-    return clientlist;
-}
-
 // TODO rename sendUpdate?
 //AdminServer.prototype.update = function(clients) {
 AdminServer.prototype.update = function() {
     var clientlist = [];
-    //clientlist = clientlist.concat( clientsToInfo(clients, 'client') );
-    var clients = this.stoxWss.clients;
-    clientlist = clientlist.concat( clientsToInfo(clients, 'client') );
-    clients = this.wss.clients;
-    clientlist = clientlist.concat( clientsToInfo(clients, 'admin') );
+    // var clients = this.stoxWss.clients;
+    // clientlist = clientlist.concat( clientsToInfo(clients, 'client') );
+    // clients = this.wss.clients;
+    // clientlist = clientlist.concat( clientsToInfo(clients, 'admin') );
+    var clientmap = getClientMap(this.stoxWss.clients, this.wss.clients);
+    clientlist = clientmapToInfo(clientmap);
 
     var msg = {
         action: 'adminUpdate',
@@ -98,6 +132,23 @@ AdminServer.prototype.broadcast = function(data) {
     for (var i in clients) {
         clients[i].send(data);
     } 
+};
+
+AdminServer.prototype.bindMessage = function(ws) {
+    var self = this;
+    ws.on('message', function(msg) {
+        var receivedMsg = JSON.parse(msg);
+        // TODO add receiveNotification to admin
+        var payload = {
+            action: 'receiveNotification',
+            data: receivedMsg.data
+        };
+        // TODO is it efficient to call getClientMap this often?
+        var clientmap = getClientMap(self.stoxWss.clients, self.wss.clients);
+        //console.warn('bindmsg ', clientmap);
+        var targetClient = clientmap[receivedMsg.to];
+        targetClient.src.send(JSON.stringify(payload));
+    });
 };
 
 module.exports = AdminServer;
