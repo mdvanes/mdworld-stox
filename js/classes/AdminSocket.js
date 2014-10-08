@@ -50,15 +50,19 @@
             var response = JSON.parse(msg.data);
             switch (response.action) {
                 case 'identify':
-                    self.port = response.port;
-                    self.ip = response.ip;
-                    $('#clientInfo')
-                        .attr('title', self.ip + ':' + self.port )
-                        .tooltip();
+                    socketUtil.receiveIdentify(self, response);
+                    // self.port = Number.parseInt(response.port);
+                    // self.ip = response.ip;
+                    // $('#clientInfo')
+                    //     .attr('title', self.ip + ':' + self.port )
+                    //     .tooltip();
                     break;
                 case 'adminUpdate':
                     log('adminstatus: ' + JSON.stringify(response.clients, null, 4));
                     self.updateConnectedClients(response.clients);
+                    break;
+                case 'receiveNotification':
+                    socketUtil.receiveNotification(response.data);
                     break;
                 case 'statusMsg':
                     return self.statusMsg(response.data);
@@ -86,7 +90,7 @@
             var $html = $('<tr><td>id</td><td>' +
                 this.port + '</td><td class="type">' +
                 this.type + '</td></tr>');
-            if( this.port === self.port ) {
+            if( Number.parseInt(this.port) === self.port ) {
                 // Current admin page specific
                 $html.addClass('current');
                 $html.find('.type')
