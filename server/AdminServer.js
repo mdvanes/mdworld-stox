@@ -138,7 +138,6 @@ AdminServer.prototype.bindMessage = function(ws) {
     var self = this;
     ws.on('message', function(msg) {
         var receivedMsg = JSON.parse(msg);
-        // TODO add receiveNotification to admin
         var payload = {
             action: 'receiveNotification',
             data: receivedMsg.data
