@@ -3,33 +3,17 @@
 'use strict';
 
 stox.controller('StoxController',
-    function StoxController($scope) { //$interval) { //, $location, $route) {
-        // $scope.activePath = null;
-        // $scope.$on('$routeChangeSuccess', function(){
-        //     $scope.activePath = $location.path();
-        //     //console.log( $location.path() );
-        // });
-    
-        /*var setBar = function(i) {
-            console.log('setBar', i);
-            $scope.testAttr = i;
-            $scope.$apply();
-        };*/
+    function StoxController($scope) { //$interval, $location, $route) {
 
         $scope.barchart = [100, 100, 100];
 
         var updateBars = function(values) {
             console.log('updateBars', values);
-            // $scope.testAttr = i;
-            //$scope.stoxSocket.barchart = 10;
             $scope.barchart = values;
             $scope.$apply();
         };
 
-        //$scope.testAttr = 50;
         $scope.stoxSocket = new StoxSocket(updateBars);
-
-        //setBar(110);
 
         // $interval(function(){
         //     // var hour=$scope.salesData.length+1;
@@ -43,6 +27,7 @@ stox.controller('StoxController',
 );
 
 
+// Simple angular/websockets: http://stackoverflow.com/questions/21658490/angular-websocket-and-rootscope-apply
 /*
 
 Service:

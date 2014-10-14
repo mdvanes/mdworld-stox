@@ -38,9 +38,9 @@ heroku open
 # TODO
 
 * Admin should have diagonal background
-* Stox (Initrode, CollaboSmart, Umbrella Co.)
 * Stox: when updating in admin, then opening a client, the default values are shown instead of the values selected at admin. This is because the admin doesn't update the model but directly sends the values to the node server. This should be converted to the Angular approach.
 * inheritance
+* amount of clients via angular in title
 * angular websockets, see AdminSocket
 * feature: messaging (multiple messages)
 * other features (mirror, icons behind connected clients, limit admin to 1 logged in?)
@@ -55,5 +55,7 @@ heroku open
 * use sails.js?
 
 # Changelog
+
+* Stox (Initrode, CollaboSmart, Umbrella Co.)
 * first features: -connected clients-, log, 
 * feature: messaging (basic)

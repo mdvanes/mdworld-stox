@@ -7,20 +7,14 @@
         this.ws = new WebSocket(host + '/admin');
         console.log('ws: ', this.ws);
         log('AdminSocket init: ' + this.ws);
-        //log('ws: ' + this.ws);
-        // log('ws2: ' + JSON.stringify(this.ws, null, 4));
-        // log('ws3: ' + this.ws.toSource());
-        // this.bindOpen();
-        // this.bindClose();
         new GenericSocket(this.ws);
         this.bindMessage();
 
         var self = this;
         $('.top-row a').click(function() {
-            // when flowing away, close the current socket
+            // When flowing away, close the current socket
             self.ws.close();
         });
-        //socketUtil.hello();
 
         // TODO Convert to Angular solution conform receiveStockUpdate in StoxController
         $('.bar').change(function() {
@@ -28,29 +22,9 @@
             $('.bar').each(function() {
                 values.push( Number.parseInt(this.value, 10) );
             });
-            self.broadcastStockUpdate(values);//[Number.parseInt(this.value, 10), 100, 100]);
+            self.broadcastStockUpdate(values);
         });
     };
-
-    // AdminSocket.prototype.bindOpen = function() {
-    //     this.ws.onopen = function() {
-    //         console.log('AdminSocket open');
-    //         $('#status')
-    //             .removeClass()
-    //             .addClass('label label-success')
-    //             .html('connected');
-    //     };
-    // };
-
-    // AdminSocket.prototype.bindClose = function() {
-    //     this.ws.onclose = function() {
-    //         console.log('AdminSocket close');
-    //         return $('#status')
-    //             .removeClass()
-    //             .addClass('label label-danger')
-    //             .html('disconnected');
-    //     };
-    // };
 
     AdminSocket.prototype.bindMessage = function() {
         var self = this;
@@ -60,11 +34,6 @@
             switch (response.action) {
                 case 'identify':
                     socketUtil.receiveIdentify(self, response);
-                    // self.port = Number.parseInt(response.port);
-                    // self.ip = response.ip;
-                    // $('#clientInfo')
-                    //     .attr('title', self.ip + ':' + self.port )
-                    //     .tooltip();
                     break;
                 case 'adminUpdate':
                     log('adminstatus: ' + JSON.stringify(response.clients, null, 4));
@@ -73,16 +42,16 @@
                 case 'receiveNotification':
                     socketUtil.receiveNotification(response.data);
                     break;
-                case 'statusMsg':
-                    return self.statusMsg(response.data);
-                case 'clientConnected':
-                    return self.clientConnected(response.data);
-                case 'clientDisconnected':
-                    return self.clientDisconnected(response.data);
-                case 'clientActivity':
-                    return self.clientActivity(response.data);
-                case 'serverInfo':
-                    return self.refreshServerinfo(response.data);
+                // case 'statusMsg':
+                //     return self.statusMsg(response.data);
+                // case 'clientConnected':
+                //     return self.clientConnected(response.data);
+                // case 'clientDisconnected':
+                //     return self.clientDisconnected(response.data);
+                // case 'clientActivity':
+                //     return self.clientActivity(response.data);
+                // case 'serverInfo':
+                //     return self.refreshServerinfo(response.data);
                 default: 
                     log(response);
             }
@@ -135,18 +104,13 @@
     };
 
     AdminSocket.prototype.broadcastStockUpdate = function(value) {
-        // var self = this;
-        // var msg = window.prompt('Type the message to send to the client ' + port + '.\n\nMessage:');
-        // if( msg !== null ) {
         var payload = {
             action: 'broadcastStockUpdate',
-            data: value,
-            //to: port
+            data: value
         };
         var jsonPayload = JSON.stringify(payload);
         this.ws.send(jsonPayload);
         log('broadcast StockUpdate' + jsonPayload);
-        // }
     };
 
     function log(msg) {
@@ -155,6 +119,6 @@
             '</td><td>' + msg + '</td></tr>');
     }
 
-    // expose
+    // Expose
     window.AdminSocket = AdminSocket;
 })(jQuery, window.socketUtil, window.GenericSocket);
