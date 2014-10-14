@@ -36,15 +36,15 @@ html, body {
 @media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000335}}
 #log {
   display: block;
-  height: 180px;
+  height: 300px;
   overflow-y: scroll;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000341}}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000340}}
 #log .timestamp {
   white-space: nowrap;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000345}}
 footer {
   background: #ececec;
   height: 300px;
