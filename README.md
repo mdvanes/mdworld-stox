@@ -37,13 +37,14 @@ heroku open
 
 # TODO
 
-* when opening client first and then in another window admin, only admin shows under connected clients
+* Admin should have diagonal background
+* Stox (Initrode, CollaboSmart, Umbrella Co.)
+* Stox: when updating in admin, then opening a client, the default values are shown instead of the values selected at admin. This is because the admin doesn't update the model but directly sends the values to the node server. This should be converted to the Angular approach.
 * inheritance
 * angular websockets, see AdminSocket
-* first features: -connected clients-, log, stox (Initrode, CollaboSmart, Umbrella Co.)
+* feature: messaging (multiple messages)
 * other features (mirror, icons behind connected clients, limit admin to 1 logged in?)
-
-
+* when opening client first and then in another window admin, only admin shows under connected clients
 * Grunt with compass, jshint and that does foreman start/npm start
 * convert PHP features
 * add Angular. implement routing with Angular for admin/client pages
@@ -51,4 +52,8 @@ heroku open
 * send messages
 * set stocks
 * add Google analytics
-# use sails.js?
+* use sails.js?
+
+# Changelog
+* first features: -connected clients-, log, 
+* feature: messaging (basic)

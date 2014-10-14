@@ -20,7 +20,16 @@
             // when flowing away, close the current socket
             self.ws.close();
         });
-        socketUtil.hello();
+        //socketUtil.hello();
+
+        // TODO Convert to Angular solution conform receiveStockUpdate in StoxController
+        $('.bar').change(function() {
+            var values = [];
+            $('.bar').each(function() {
+                values.push( Number.parseInt(this.value, 10) );
+            });
+            self.broadcastStockUpdate(values);//[Number.parseInt(this.value, 10), 100, 100]);
+        });
     };
 
     // AdminSocket.prototype.bindOpen = function() {
@@ -123,6 +132,21 @@
             self.ws.send(jsonPayload);
             log('send notification' + jsonPayload);
         }
+    };
+
+    AdminSocket.prototype.broadcastStockUpdate = function(value) {
+        // var self = this;
+        // var msg = window.prompt('Type the message to send to the client ' + port + '.\n\nMessage:');
+        // if( msg !== null ) {
+        var payload = {
+            action: 'broadcastStockUpdate',
+            data: value,
+            //to: port
+        };
+        var jsonPayload = JSON.stringify(payload);
+        this.ws.send(jsonPayload);
+        log('broadcast StockUpdate' + jsonPayload);
+        // }
     };
 
     function log(msg) {

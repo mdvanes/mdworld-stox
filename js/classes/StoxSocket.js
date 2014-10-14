@@ -1,7 +1,8 @@
 (function($, socketUtil, GenericSocket) {
     'use strict';
 
-    var StoxSocket = function($scope) {
+    // TODO replace updateBars with Service/Factory as described in StoxController.js comments
+    var StoxSocket = function(updateBars) {
         console.log('StoxSocket init');
         var host = location.origin.replace(/^http/, 'ws');
         this.ws = new WebSocket(host + '/stox');
@@ -9,13 +10,13 @@
 
         new GenericSocket(this.ws);
 
-        this.bindMessage();
+        this.bindMessage(updateBars);
 
         // TODO testvalue to see if directive can access it
-        this.barchart = 3;
+        //this.barchart = 3;
         //this.testAttr = 
         //$scope.testAttr = 4;
-        this.$scope = $scope;
+        //this.$scope = $scope;
 
         var self = this;
         $('.top-row a').click(function() {
@@ -24,7 +25,7 @@
         });
     };
 
-    StoxSocket.prototype.bindMessage = function() {
+    StoxSocket.prototype.bindMessage = function(updateBars) {
         var self = this;
         this.ws.onmessage = function(msg) {
             console.log('onmsg', msg);
@@ -39,12 +40,18 @@
                     //     .tooltip();
                     break;
                 case 'receiveNotification':
-                    self.barchart = 5;//response.data;
-                    console.log('self.$scope', self.$scope);
-                    //self.$scope.testAttr = response.data;
+                    //self.barchart = 5;//response.data;
+                    //updateBars([10, 20, 30]);
+                    // console.log('receiveNotification $scope');
+                    // //self.$scope.testAttr = 5; //response.data;
+                    // //$scope.testAttr = 5;
+                    // setBar(130);
 
-                    console.log('self.barchart' + self.barchart);
+                    //console.log('self.barchart' + self.barchart);
                     socketUtil.receiveNotification(response.data);
+                    break;
+                case 'receiveStockUpdate':
+                    updateBars(response.data);
                     break;
                 // case 'statusMsg':
                 //     return self.statusMsg(response.data);
