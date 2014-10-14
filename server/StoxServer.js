@@ -25,28 +25,8 @@ StoxServer.prototype.bindConnection = function() {
         });
 
         serverUtil.identify(this, ws);
-        self.adminServer.update();//this.clients);
+        self.adminServer.update();
     });
 };
-
-// http://nodejs.org/docs/latest/api/util.html#util_util_inherits_constructor_superconstructor
-// TODO reuse with client version of identify?
-// see http://javascript.crockford.com/inheritance.html
-// StoxServer.prototype.identify = function(ws) {
-//     var clients = this.wss.clients;
-//     var newestSocketIndex = clients.length - 1;
-//     var newestSocketInfo = clients[newestSocketIndex]._socket;
-//     var msg = {
-//         action: 'identify',
-//         //data: '1234', // wss.clients[0]
-//         ip: newestSocketInfo.remoteAddress,
-//         port: newestSocketInfo.remotePort
-//     };
-//     // console.log(newestSocketInfo.address().address + ' ' +
-//     //     newestSocketInfo.address().port + ' ' +
-//     //     newestSocketInfo.remoteAddress + ' ' +
-//     //     newestSocketInfo.remotePort);
-//     ws.send(JSON.stringify(msg));
-// };
 
 module.exports = StoxServer;
