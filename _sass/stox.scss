@@ -34,7 +34,8 @@ html, body {
 
 #log {
     display: block;
-    max-height: 300px;
+    //max-height: 180px;//300px;
+    height: 180px;//300px;
     overflow-y: scroll;
 
     .timestamp {
@@ -47,3 +48,5 @@ footer {
     height: 300px;
     padding-top: 50px;
 }
+
+@import "barchart";

@@ -37,7 +37,7 @@ function getClientMap(stoxClients, adminClients) {
     return clientmap;
 }
 
-// TODO refactor to use getClientMap
+// TODO remove
 // convert ws.clients to an infolist
 // function clientsToInfo(clients, type) {
 //     var i, port, clientInfo;
@@ -134,19 +134,38 @@ AdminServer.prototype.broadcast = function(data) {
     } 
 };
 
+AdminServer.prototype.broadcastToStoxClients = function(data) {
+    //console.log('broadcast to ' + this.wss.clients.length, this.wss.clients);
+    var clients = this.stoxWss.clients;
+    for (var i in clients) {
+        clients[i].send(data);
+    } 
+};
+
 AdminServer.prototype.bindMessage = function(ws) {
     var self = this;
     ws.on('message', function(msg) {
         var receivedMsg = JSON.parse(msg);
-        var payload = {
-            action: 'receiveNotification',
-            data: receivedMsg.data
-        };
-        // TODO is it efficient to call getClientMap this often?
-        var clientmap = getClientMap(self.stoxWss.clients, self.wss.clients);
-        //console.warn('bindmsg ', clientmap);
-        var targetClient = clientmap[receivedMsg.to];
-        targetClient.src.send(JSON.stringify(payload));
+        var payload;
+        //console.log('bindMessage receivedMsg: ', receivedMsg);
+        if(receivedMsg.action === 'sendNotification') {
+            payload = {
+                action: 'receiveNotification',
+                data: receivedMsg.data
+            };
+            // TODO is it efficient to call getClientMap this often?
+            var clientmap = getClientMap(self.stoxWss.clients, self.wss.clients);
+            //console.warn('bindmsg ', clientmap);
+            var targetClient = clientmap[receivedMsg.to];
+            targetClient.src.send(JSON.stringify(payload));
+        } else if(receivedMsg.action === 'broadcastStockUpdate') {
+            payload = {
+                action: 'receiveStockUpdate',
+                data: receivedMsg.data
+            };
+            self.broadcastToStoxClients(JSON.stringify(payload));
+            //console.log('broadcasting ' + JSON.stringify(payload));
+        }
     });
 };
 

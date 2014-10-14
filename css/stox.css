@@ -36,19 +36,57 @@ html, body {
 @media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000335}}
 #log {
   display: block;
-  max-height: 300px;
+  height: 180px;
   overflow-y: scroll;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000341}}
 #log .timestamp {
   white-space: nowrap;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/stox\.scss}line{font-family:\0000346}}
 footer {
   background: #ececec;
   height: 300px;
   padding-top: 50px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/_barchart\.scss}line{font-family:\000031}}
+#barchart {
+  height: 200px;
+  width: 300px;
+  /* Hack to align bars to bottom without absolute position or flexbox */
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/_barchart\.scss}line{font-family:\000036}}
+#barchart > div {
+  color: #fff;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 3px;
+  vertical-align: bottom;
+  width: 75px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/_barchart\.scss}line{font-family:\0000316}}
+#barchart > #bar-1 {
+  background-color: #008000;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/_barchart\.scss}line{font-family:\0000320}}
+#barchart > #bar-2 {
+  background-color: #00C800;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/_barchart\.scss}line{font-family:\0000324}}
+#barchart > #bar-3 {
+  background-color: #003000;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/D\:\/personal\/herokuapp\/mdworld-stox\/_sass\/_barchart\.scss}line{font-family:\0000329}}
+#barchart::after {
+  background: transparent;
+  content: ' ';
+  display: inline-block;
+  height: 200px;
+  vertical-align: bottom;
+  width: 1px;
 }
 
 /*# sourceMappingURL=stox.css.map */
