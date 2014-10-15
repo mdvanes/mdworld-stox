@@ -10,10 +10,12 @@ stox.directive('barchart', function() {
     // Angular-ui components http://angular-ui.github.io/
 
     function link($scope, elem) {
+        // elem corresponds to $('#barchart')
+
         // Jquery animate on a div instead of canvas, because how to do motion tweening in canvas?
-        var $bar1 = elem.find('#barchart > #bar-1');
-        var $bar2 = elem.find('#barchart > #bar-2');
-        var $bar3 = elem.find('#barchart > #bar-3');
+        var $bar1 = elem.find('#bar-1');
+        var $bar2 = elem.find('#bar-2');
+        var $bar3 = elem.find('#bar-3');
 
         // http://stackoverflow.com/questions/18854007/angular-watch-not-working
         // Supply scope variable to watch as string

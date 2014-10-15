@@ -2,6 +2,18 @@ $primaryColor: green;
 
 html, body {
     height: 100%;
+
+    body.login {
+        $fromColor: #fff;
+        $toColor: #f0f0f0;
+        background: linear-gradient(
+            -45deg,
+            $toColor 25%, $fromColor 25%,
+            $fromColor 50%, $toColor 50%,
+            $toColor 75%, $fromColor 75%
+        );
+        background-size: 200px 200px;
+    }
 }
 
 .top-row {
@@ -13,7 +25,7 @@ html, body {
     color: white;
     margin-top: 10px;
 
-    &.login {
+    .login & {
         border-bottom: 5px solid black;
     }
 }

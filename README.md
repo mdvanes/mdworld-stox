@@ -37,7 +37,7 @@ heroku open
 
 # TODO
 
-* Admin should have diagonal background
+* add Google analytics
 * Stox: when updating in admin, then opening a client, the default values are shown instead of the values selected at admin. This is because the admin doesn't update the model but directly sends the values to the node server. This should be converted to the Angular approach.
 * inheritance
 * amount of clients via angular in title
@@ -51,11 +51,16 @@ heroku open
 * show id
 * send messages
 * set stocks
-* add Google analytics
 * use sails.js?
+* add "kicking" of specific clients from Admin page
+* restyle sliders on Admin page to look like barchart
+* longpoll polyfill for browsers without websocket support (IE < 10, android stock)
+* Multiplayer Pong!
+
 
 # Changelog
 
+* Admin should have diagonal background
 * Stox (Initrode, CollaboSmart, Umbrella Co.)
 * first features: -connected clients-, log, 
 * feature: messaging (basic)
