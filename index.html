@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="stox">
+<html ng-app="stox" data-ng-controller="NavController">
     <head>
         <title>STOX</title>
         <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/stox.css" />
     </head>
-    <body>
+    <body ng-class="{ login: activePath=='/login' }">
 
         <div class="container">
             <div class="top-row row">
@@ -25,8 +25,8 @@
             </div>
         </div>
 
-        <div data-ng-controller="NavController">
-            <div class="header" ng-class="{ login: activePath=='/login' }">
+        <div>
+            <div class="header">
                 <div class="container">
                     <h1>STOX</h1>
                 </div>
