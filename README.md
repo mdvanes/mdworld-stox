@@ -19,6 +19,11 @@ foreman start
 
 # Running on Heroku
 
+Now done with Travis, see .travis.yml file.
+Also see [https://travis-ci.org/mdvanes/mdworld-stox](https://travis-ci.org/mdvanes/mdworld-stox)
+
+## Manually
+
 ``` bash
 heroku create
 git push heroku master
